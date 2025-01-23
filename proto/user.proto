@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "github.com/xIndustries/BandRoom/backend-auth/proto/Generated;user";
+
+
+// UserService defines the gRPC service for user operations.
+service UserService {
+  // Create a new user in the database.
+  rpc CreateUser(CreateUserRequest) returns (UserResponse);
+
+  // Retrieve user details by Auth0 ID.
+  rpc GetUser(GetUserRequest) returns (UserResponse);
+
+  // Update an existing user's data (e.g., email).
+  rpc UpdateUser(UpdateUserRequest) returns (UserResponse);
+
+  // Update only the username for an existing user.
+  rpc UpdateUsername(UpdateUsernameRequest) returns (UserResponse);
+
+  // Delete a user by Auth0 ID.
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+}
+
+// Message to create a new user.
+message CreateUserRequest {
+  string auth0_id = 1;      // Auth0 unique identifier (required)
+  string email = 2;         // User's email address (required)
+  string username = 3;      // Optional username
+}
+
+// Message to retrieve user details.
+message GetUserRequest {
+  string auth0_id = 1;      // Auth0 unique identifier (required)
+}
+
+// Message to update user data (e.g., email).
+message UpdateUserRequest {
+  string auth0_id = 1;      // Auth0 unique identifier (required)
+  string email = 2;         // Updated email (required)
+}
+
+// Message to update only the username.
+message UpdateUsernameRequest {
+  string auth0_id = 1;      // Auth0 unique identifier (required)
+  string username = 2;      // Updated username (required)
+}
+
+// Response message containing user details.
+message UserResponse {
+  string id = 1;            // Database ID (UUID)
+  string auth0_id = 2;      // Auth0 unique identifier
+  string email = 3;         // User's email address
+  string username = 4;      // User's optional username
+  string created_at = 5;    // Timestamp of user creation
+}
+
+// Message to delete a user.
+message DeleteUserRequest {
+  string auth0_id = 1;      // Auth0 unique identifier (required)
+}
+
+// Response for delete operation.
+message DeleteUserResponse {
+  string message = 1;       // Success message
+}

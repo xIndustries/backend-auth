@@ -1,0 +1,33 @@
+
+2025/01/16 17:31:42 Successfully connected to the database
+2025/01/16 17:31:42 gRPC server is listening on port 50051
+2025/01/16 17:51:11 Successfully connected to the database
+2025/01/16 17:51:11 gRPC server is listening on port 50051
+2025/01/16 18:37:47 Successfully connected to the database
+2025/01/16 18:37:47 gRPC server is listening on port 50051
+2025/01/17 10:08:02 Successfully connected to the database
+2025/01/17 10:08:02 gRPC server is listening on port 50051
+2025/01/20 08:54:23 Successfully connected to the database
+2025/01/20 08:54:23 gRPC server is listening on port 50051
+2025/01/20 09:45:17 Successfully connected to the database
+2025/01/20 09:45:17 gRPC server is listening on port 50051
+2025/01/21 20:45:28 Successfully connected to the database
+2025/01/21 20:45:28 gRPC server is listening on port 50051
+2025/01/22 14:56:07 Successfully connected to the database
+2025/01/22 14:56:08 gRPC server is listening on port 50051
+2025/01/22 15:03:48 Successfully connected to the database
+2025/01/22 15:03:49 gRPC server is listening on port 50051
+2025/01/22 16:46:41 Successfully connected to the database
+2025/01/22 16:46:41 gRPC server is listening on port 50051
+2025/01/22 16:52:26 Successfully connected to the database
+2025/01/22 16:52:26 gRPC server is listening on port 50051
+2025/01/22 16:52:43 🔹 Creating User - Auth0ID: auth0|67909865de06da301258958a, Email: user1@email.com, Username: 
+2025/01/22 16:52:43 ❌ Failed to create user: pq: duplicate key value violates unique constraint "users_auth0_id_key"
+2025/01/22 16:53:35 🔹 Creating User - Auth0ID: auth0|67909865de06da301258958a, Email: user1@email.com, Username: 
+2025/01/22 16:53:35 ❌ Failed to create user: pq: duplicate key value violates unique constraint "users_auth0_id_key"
+2025/01/22 16:54:35 🔹 Creating User - Auth0ID: auth0|67909865de06da301258958a, Email: user1@email.com, Username: 
+2025/01/22 16:54:35 ❌ Failed to create user: pq: duplicate key value violates unique constraint "users_auth0_id_key"
+2025/01/22 16:55:10 🔹 Creating User - Auth0ID: auth0|6790b26d037bfe86db5f4770, Email: user3@email.com, Username: 
+2025/01/22 16:55:10 ✅ User created successfully: user3@email.com
+2025/01/23 08:45:19 Successfully connected to the database
+2025/01/23 08:45:19 gRPC server is listening on port 50051
