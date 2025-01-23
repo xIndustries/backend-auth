@@ -3,6 +3,7 @@ package services
 import (
 	"context"
 	"errors"
+	"log"
 	"time"
 
 	"github.com/google/uuid"
@@ -20,7 +21,7 @@ func NewUserService(repo *repositories.UserRepository) *UserService {
 	return &UserService{Repo: repo}
 }
 
-// Helper function to convert string to *string
+// Helper functions
 func stringPtr(s string) *string {
 	if s == "" {
 		return nil
@@ -28,7 +29,6 @@ func stringPtr(s string) *string {
 	return &s
 }
 
-// Helper function to convert *string to string
 func derefString(s *string) string {
 	if s == nil {
 		return ""
@@ -36,61 +36,39 @@ func derefString(s *string) string {
 	return *s
 }
 
-// CreateUser handles the creation of a new user.
+// ✅ CreateUser - Prevent duplicate creation
 func (s *UserService) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb.UserResponse, error) {
+	log.Printf("🔹 Checking if user exists | Auth0ID: %s", req.Auth0Id)
+
+	existingUser, err := s.Repo.GetUser(req.Auth0Id)
+	if err == nil && existingUser != nil {
+		log.Printf("✅ User already exists, skipping creation | Auth0ID: %s", req.Auth0Id)
+		return &pb.UserResponse{
+			Id:        existingUser.ID,
+			Auth0Id:   existingUser.Auth0ID,
+			Email:     existingUser.Email,
+			Username:  derefString(existingUser.Username),
+			CreatedAt: existingUser.CreatedAt.Format(time.RFC3339),
+		}, nil
+	}
+
+	log.Printf("🔹 Creating new user | Auth0ID: %s | Email: %s", req.Auth0Id, req.Email)
+
 	user := &models.User{
 		ID:        uuid.NewString(),
 		Auth0ID:   req.Auth0Id,
 		Email:     req.Email,
-		Username:  stringPtr(req.Username), // Convert string to *string
+		Username:  stringPtr(req.Username),
 		CreatedAt: time.Now(),
 	}
 
-	err := s.Repo.CreateUser(user)
+	err = s.Repo.CreateUser(user)
 	if err != nil {
+		log.Printf("❌ Failed to create user: %v", err)
 		return nil, err
 	}
 
-	return &pb.UserResponse{
-		Id:        user.ID,
-		Auth0Id:   user.Auth0ID,
-		Email:     user.Email,
-		Username:  derefString(user.Username), // Convert *string to string
-		CreatedAt: user.CreatedAt.Format(time.RFC3339),
-	}, nil
-}
-
-// GetUser handles retrieving a user by Auth0 ID.
-func (s *UserService) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.UserResponse, error) {
-	user, err := s.Repo.GetUser(req.Auth0Id)
-	if err != nil {
-		return nil, err
-	}
-
-	return &pb.UserResponse{
-		Id:        user.ID,
-		Auth0Id:   user.Auth0ID,
-		Email:     user.Email,
-		Username:  derefString(user.Username), // Convert *string to string
-		CreatedAt: user.CreatedAt.Format(time.RFC3339),
-	}, nil
-}
-
-// UpdateUser handles updating a user's email.
-func (s *UserService) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest) (*pb.UserResponse, error) {
-	if req.Email == "" {
-		return nil, errors.New("email is required")
-	}
-
-	err := s.Repo.UpdateUserEmail(req.Auth0Id, req.Email)
-	if err != nil {
-		return nil, err
-	}
-
-	user, err := s.Repo.GetUser(req.Auth0Id)
-	if err != nil {
-		return nil, err
-	}
+	log.Printf("✅ User created successfully: %s", user.ID)
 
 	return &pb.UserResponse{
 		Id:        user.ID,
@@ -101,19 +79,81 @@ func (s *UserService) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest)
 	}, nil
 }
 
-// UpdateUsername handles updating a user's username.
+// ✅ GetUser
+func (s *UserService) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.UserResponse, error) {
+	log.Printf("🔹 Retrieving user | Auth0ID: %s", req.Auth0Id)
+
+	user, err := s.Repo.GetUser(req.Auth0Id)
+	if err != nil {
+		log.Printf("❌ Failed to retrieve user: %v", err)
+		return nil, err
+	}
+
+	log.Printf("✅ User retrieved successfully: %s", user.Auth0ID)
+
+	return &pb.UserResponse{
+		Id:        user.ID,
+		Auth0Id:   user.Auth0ID,
+		Email:     user.Email,
+		Username:  derefString(user.Username),
+		CreatedAt: user.CreatedAt.Format(time.RFC3339),
+	}, nil
+}
+
+// ✅ UpdateUsername
 func (s *UserService) UpdateUsername(ctx context.Context, req *pb.UpdateUsernameRequest) (*pb.UserResponse, error) {
+	log.Printf("🔹 Updating username | Auth0ID: %s | New Username: %s", req.Auth0Id, req.Username)
+
 	if req.Username == "" {
+		log.Println("❌ UpdateUsername: Username is empty")
 		return nil, errors.New("username is required")
 	}
 
 	err := s.Repo.UpdateUsername(req.Auth0Id, req.Username)
 	if err != nil {
+		log.Printf("❌ Failed to update username in DB: %v", err)
 		return nil, err
 	}
 
+	log.Println("✅ Username updated successfully in DB")
+
 	user, err := s.Repo.GetUser(req.Auth0Id)
 	if err != nil {
+		log.Printf("❌ Failed to retrieve updated user: %v", err)
+		return nil, err
+	}
+
+	log.Printf("✅ Username update confirmed | Auth0ID: %s | Username: %s", user.Auth0ID, derefString(user.Username))
+
+	return &pb.UserResponse{
+		Id:        user.ID,
+		Auth0Id:   user.Auth0ID,
+		Email:     user.Email,
+		Username:  derefString(user.Username),
+		CreatedAt: user.CreatedAt.Format(time.RFC3339),
+	}, nil
+}
+
+// ✅ UpdateUser (Email)
+func (s *UserService) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest) (*pb.UserResponse, error) {
+	log.Printf("🔹 Updating user email | Auth0ID: %s | New Email: %s", req.Auth0Id, req.Email)
+
+	if req.Email == "" {
+		log.Println("❌ UpdateUser: Email is empty")
+		return nil, errors.New("email is required")
+	}
+
+	err := s.Repo.UpdateUserEmail(req.Auth0Id, req.Email)
+	if err != nil {
+		log.Printf("❌ Failed to update email: %v", err)
+		return nil, err
+	}
+
+	log.Println("✅ Email updated successfully")
+
+	user, err := s.Repo.GetUser(req.Auth0Id)
+	if err != nil {
+		log.Printf("❌ Failed to retrieve updated user: %v", err)
 		return nil, err
 	}
 
@@ -126,12 +166,17 @@ func (s *UserService) UpdateUsername(ctx context.Context, req *pb.UpdateUsername
 	}, nil
 }
 
-// DeleteUser handles deleting a user by Auth0 ID.
+// ✅ DeleteUser
 func (s *UserService) DeleteUser(ctx context.Context, req *pb.DeleteUserRequest) (*pb.DeleteUserResponse, error) {
+	log.Printf("🔹 Deleting user | Auth0ID: %s", req.Auth0Id)
+
 	err := s.Repo.DeleteUser(req.Auth0Id)
 	if err != nil {
+		log.Printf("❌ Failed to delete user: %v", err)
 		return nil, err
 	}
+
+	log.Printf("✅ User deleted successfully: %s", req.Auth0Id)
 
 	return &pb.DeleteUserResponse{
 		Message: "User deleted successfully",

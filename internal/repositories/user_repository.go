@@ -15,7 +15,7 @@ func NewUserRepository(db *sql.DB) *UserRepository {
 	return &UserRepository{DB: db}
 }
 
-// CreateUser inserts a new user into the database.
+// ✅ CreateUser - Inserts a new user into the database
 func (r *UserRepository) CreateUser(user *models.User) error {
 	query := `
 		INSERT INTO users (id, auth0_id, email, username, created_at)
@@ -25,7 +25,7 @@ func (r *UserRepository) CreateUser(user *models.User) error {
 	return err
 }
 
-// GetUser retrieves a user by their Auth0 ID.
+// ✅ GetUser - Retrieves a user by their Auth0 ID
 func (r *UserRepository) GetUser(auth0ID string) (*models.User, error) {
 	query := `SELECT id, auth0_id, email, username, created_at FROM users WHERE auth0_id = $1`
 	row := r.DB.QueryRow(query, auth0ID)
@@ -39,21 +39,21 @@ func (r *UserRepository) GetUser(auth0ID string) (*models.User, error) {
 	return &user, nil
 }
 
-// UpdateUsername updates the username for a user.
+// ✅ UpdateUsername - Updates the username for a user
 func (r *UserRepository) UpdateUsername(auth0ID, username string) error {
 	query := `UPDATE users SET username = $1 WHERE auth0_id = $2`
 	_, err := r.DB.Exec(query, username, auth0ID)
 	return err
 }
 
-// UpdateUserEmail updates the email for a user.
+// ✅ UpdateUserEmail - Updates the email for a user
 func (r *UserRepository) UpdateUserEmail(auth0ID, email string) error {
 	query := `UPDATE users SET email = $1 WHERE auth0_id = $2`
 	_, err := r.DB.Exec(query, email, auth0ID)
 	return err
 }
 
-// DeleteUser removes a user by their Auth0 ID.
+// ✅ DeleteUser - Removes a user by their Auth0 ID
 func (r *UserRepository) DeleteUser(auth0ID string) error {
 	query := `DELETE FROM users WHERE auth0_id = $1`
 	_, err := r.DB.Exec(query, auth0ID)

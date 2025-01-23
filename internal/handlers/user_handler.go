@@ -8,8 +8,8 @@ import (
 )
 
 type UserHandler struct {
-	Service                           *services.UserService
-	pb.UnimplementedUserServiceServer // Embed the required struct
+	Service *services.UserService
+	pb.UnimplementedUserServiceServer
 }
 
 // NewUserHandler creates a new UserHandler instance.
@@ -23,6 +23,10 @@ func (h *UserHandler) CreateUser(ctx context.Context, req *pb.CreateUserRequest)
 
 func (h *UserHandler) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.UserResponse, error) {
 	return h.Service.GetUser(ctx, req)
+}
+
+func (h *UserHandler) UpdateUsername(ctx context.Context, req *pb.UpdateUsernameRequest) (*pb.UserResponse, error) {
+	return h.Service.UpdateUsername(ctx, req)
 }
 
 func (h *UserHandler) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest) (*pb.UserResponse, error) {

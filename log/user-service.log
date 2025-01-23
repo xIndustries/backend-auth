@@ -31,3 +31,58 @@
 2025/01/22 16:55:10 ✅ User created successfully: user3@email.com
 2025/01/23 08:45:19 Successfully connected to the database
 2025/01/23 08:45:19 gRPC server is listening on port 50051
+2025/01/23 09:13:56 Successfully connected to the database
+2025/01/23 09:13:56 gRPC server is listening on port 50051
+2025/01/23 09:14:24 🔹 Creating new user | Auth0ID: auth0|67909865de06da301258958a | Email: user1@email.com
+2025/01/23 09:14:24 🔹 Retrieving user | Auth0ID: auth0|67909865de06da301258958a
+2025/01/23 09:14:24 ❌ Failed to create user: pq: duplicate key value violates unique constraint "users_auth0_id_key"
+2025/01/23 09:14:24 ✅ User retrieved successfully: auth0|67909865de06da301258958a
+2025/01/23 09:16:28 Successfully connected to the database
+2025/01/23 09:16:29 gRPC server is listening on port 50051
+2025/01/23 09:17:14 🔹 Creating new user | Auth0ID: auth0|67909865de06da301258958a | Email: user1@email.com
+2025/01/23 09:17:14 🔹 Retrieving user | Auth0ID: auth0|67909865de06da301258958a
+2025/01/23 09:17:14 ❌ Failed to create user: pq: duplicate key value violates unique constraint "users_auth0_id_key"
+2025/01/23 09:17:14 ✅ User retrieved successfully: auth0|67909865de06da301258958a
+2025/01/23 13:50:59 Successfully connected to the database
+2025/01/23 13:50:59 gRPC server is listening on port 50051
+2025/01/23 13:52:44 🔹 Retrieving user | Auth0ID: auth0|6790989243b07c30afbaeb34
+2025/01/23 13:52:44 🔹 Retrieving user | Auth0ID: auth0|6790989243b07c30afbaeb34
+2025/01/23 13:52:44 ✅ User retrieved successfully: auth0|6790989243b07c30afbaeb34
+2025/01/23 13:52:44 ✅ User retrieved successfully: auth0|6790989243b07c30afbaeb34
+2025/01/23 13:54:41 🔹 Retrieving user | Auth0ID: auth0|6790b26d037bfe86db5f4770
+2025/01/23 13:54:41 ✅ User retrieved successfully: auth0|6790b26d037bfe86db5f4770
+2025/01/23 13:54:41 🔹 Retrieving user | Auth0ID: auth0|6790b26d037bfe86db5f4770
+2025/01/23 13:54:41 ✅ User retrieved successfully: auth0|6790b26d037bfe86db5f4770
+2025/01/23 14:04:13 Successfully connected to the database
+2025/01/23 14:04:14 gRPC server is listening on port 50051
+2025/01/23 14:04:46 🔹 Retrieving user | Auth0ID: auth0|6790b26d037bfe86db5f4770
+2025/01/23 14:04:46 🔹 Retrieving user | Auth0ID: auth0|6790b26d037bfe86db5f4770
+2025/01/23 14:04:46 ✅ User retrieved successfully: auth0|6790b26d037bfe86db5f4770
+2025/01/23 14:04:46 ✅ User retrieved successfully: auth0|6790b26d037bfe86db5f4770
+2025/01/23 14:09:35 Successfully connected to the database
+2025/01/23 14:09:35 gRPC server is listening on port 50051
+2025/01/23 14:10:02 🔹 Retrieving user | Auth0ID: auth0|67909865de06da301258958a
+2025/01/23 14:10:02 🔹 Retrieving user | Auth0ID: auth0|67909865de06da301258958a
+2025/01/23 14:10:02 ✅ User retrieved successfully: auth0|67909865de06da301258958a
+2025/01/23 14:10:02 ✅ User retrieved successfully: auth0|67909865de06da301258958a
+2025/01/23 14:10:11 🔹 Updating username | Auth0ID: auth0|67909865de06da301258958a | New Username: Axel
+2025/01/23 14:10:11 ✅ Username updated successfully in DB
+2025/01/23 14:10:11 ✅ Username update confirmed | Auth0ID: auth0|67909865de06da301258958a | Username: Axel
+2025/01/23 14:10:42 🔹 Retrieving user | Auth0ID: auth0|67909865de06da301258958a
+2025/01/23 14:10:42 ✅ User retrieved successfully: auth0|67909865de06da301258958a
+2025/01/23 14:10:42 🔹 Retrieving user | Auth0ID: auth0|67909865de06da301258958a
+2025/01/23 14:10:42 ✅ User retrieved successfully: auth0|67909865de06da301258958a
+2025/01/23 14:12:12 🔹 Retrieving user | Auth0ID: auth0|6790989243b07c30afbaeb34
+2025/01/23 14:12:12 ✅ User retrieved successfully: auth0|6790989243b07c30afbaeb34
+2025/01/23 14:12:12 🔹 Retrieving user | Auth0ID: auth0|6790989243b07c30afbaeb34
+2025/01/23 14:12:12 ✅ User retrieved successfully: auth0|6790989243b07c30afbaeb34
+2025/01/23 14:12:17 🔹 Updating username | Auth0ID: auth0|6790989243b07c30afbaeb34 | New Username: Doggie
+2025/01/23 14:12:17 ✅ Username updated successfully in DB
+2025/01/23 14:12:17 ✅ Username update confirmed | Auth0ID: auth0|6790989243b07c30afbaeb34 | Username: Doggie
+2025/01/23 14:12:46 🔹 Retrieving user | Auth0ID: auth0|6790b26d037bfe86db5f4770
+2025/01/23 14:12:46 ✅ User retrieved successfully: auth0|6790b26d037bfe86db5f4770
+2025/01/23 14:12:46 🔹 Retrieving user | Auth0ID: auth0|6790b26d037bfe86db5f4770
+2025/01/23 14:12:46 ✅ User retrieved successfully: auth0|6790b26d037bfe86db5f4770
+2025/01/23 14:13:07 🔹 Updating username | Auth0ID: auth0|6790b26d037bfe86db5f4770 | New Username: GAL1LE0
+2025/01/23 14:13:07 ✅ Username updated successfully in DB
+2025/01/23 14:13:07 ✅ Username update confirmed | Auth0ID: auth0|6790b26d037bfe86db5f4770 | Username: GAL1LE0
